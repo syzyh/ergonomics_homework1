@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Ergonomics</title>
+	<link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
+	<link rel="stylesheet" href="lib/materialize/iconfont/material-icons.css">
+</head>
+<body>
+	<script src="lib/materialize/js/jquery-2.1.1.min.js"></script>
+	<script src="lib/materialize/js/materialize.min.js"></script>
+	<script src="lib/echarts.js"></script>
+	<div class="row" >
+		<div class="col s12 l6 offset-l3">
+			<nav class="teal  lighten-1">
+				<div class="nav-wrapper">
+				    <a href="#" class="brand-logo center">Ergonomics Homework</a>
+				</div>
+			</nav>
+			<div class="card blue-grey lighten-5">
+            <div class="card-content">
+                <div class="row">
+					<form class="col s12">
+						<div class="row">
+						    <div class="input-field col s8">
+						          <input id="first_name" type="text" class="validate grey-text text-darken-4">
+						          <label for="first_name">学号</label>
+						    </div>
+						    <div id="button" class="col s4" style="margin-top: 20px"><a class="waves-effect waves-light btn">确认</a></div>
+						</div>
+					</form>
+					<div class="col s12">
+						<div id="main" style="height:350px"></div>
+					</div>
+					      <ul class="collection with-header blue-grey lighten-5">
+        <li class="collection-header teal-text"><h5 id="name">姓名</h5></li>
+        <li id="score" class="collection-item teal-text">总分:100</li>
+        <li id="advise" class="collection-item teal-text">评注:SSS级别</li>
+      </ul>
+				</div>
+            </div>
+          	</div>
+
+		</div>
+	</div>
+	<script src="jsondata.js"></script>
+	<script>
+
+		var dataBJ = [
+		    [5,5,5],
+		];
+		var option = {
+		    backgroundColor: '#eceff1',
+
+		    radar: {
+		        indicator: [
+		            {name: '问题', max: 5},
+		            {name: '方案', max: 5},
+		            {name: '展示', max: 5}
+		        ],
+		        shape: 'circle',
+		        splitNumber: 5,
+		        name: {
+		            textStyle: {
+		                color: '#00897b'
+		            }
+		        },
+		        splitLine: {
+		            lineStyle: {
+		                color: [
+		                    'rgba(0, 137, 123, 0.1)', 'rgba(0, 137, 123, 0.2)',
+		                    'rgba(0, 137, 123, 0.4)', 'rgba(0, 137, 123, 0.6)',
+		                    'rgba(0, 137, 123, 0.8)', 'rgba(0, 137, 123, 1)'
+		                ].reverse()
+		            }
+		        },
+		        splitArea: {
+		            show: false
+		        },
+		        axisLine: {
+		            lineStyle: {
+		                color: '#00897b'
+		            }
+		        }
+		    },
+		    series: [
+		        {
+		            name: '北京',
+		            type: 'radar',
+		            lineStyle: {
+					    normal: {
+					        width: 1,
+					        opacity: 0.5
+					    }
+					},
+		            data: dataBJ,
+		            symbol: 'none',
+		            itemStyle: {
+		                normal: {
+		                    color: '#00897b'
+		                }
+		            },
+		            areaStyle: {
+		                normal: {
+		                    opacity: 0.4
+		                }
+		            }
+		        },
+		    ]
+		};
+		var mainCanvas = document.getElementById('main');
+		var myChart = echarts.init(mainCanvas);
+        myChart.setOption(option);
+        $(document).ready(function(){
+			$("#button").click(function(){
+				var data = setValue($("#first_name").val());
+				var swither={
+					S: 5,
+					A: 4,
+					B: 3,
+					C: 2,
+					D: 1
+				}
+				
+				if(data){
+					dataBJ[0][0] = swither[data['问题']];
+					dataBJ[0][1] = swither[data['方案']];
+					dataBJ[0][2] = swither[data['展示']];
+					myChart.setOption(option);
+					$("#name").text(data['姓名']);
+					$("#score").text('总分:'+data['总分']);
+					if(data['评注']){
+						$("#advise").text('评注:'+data['评注']);
+					}else{
+						$("#advise").text('评注:'+data['分析']);
+					}
+				}else{
+					$("#name").text('学号不存在或输入格式有误');
+				}
+				
+			});
+		});
+	</script>
+</body>
+</html>
