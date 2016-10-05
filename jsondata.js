@@ -4,12 +4,15 @@ var dataOfThree = {"0":{"学号":2014212151,"姓名":"王晓臣","问题":"B","�
 
 function setValue(s){
 	var num = parseInt(s);
-	if(num){
-		if(num>=2014212181){
-			console.log(dataOfFour[(num-2014212181)]);
-			return dataOfFour[(num-2014212181)];
+	if(num>=2014212151){
+		if(num>=2014212189){
+			return dataOfFour[(num-2014212182)];
 		}else{
-			return dataOfThree[(num-2014212151)];
+			if(num>=2014212181){
+				return dataOfFour[(num-2014212181)];
+			}else{
+				return dataOfThree[(num-2014212151)];
+			}
 		}
 		
 	}
