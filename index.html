@@ -33,11 +33,7 @@
 					<div class="col s12 center">
 						<div id="main" style="height:320px;margin:0px auto"></div>
 					</div>
-					      <ul class="collection with-header blue-grey lighten-5">
-        <li class="collection-header teal-text"><h5 id="name">姓名</h5></li>
-        <li id="score" class="collection-item teal-text">总分:100</li>
-        <li id="advise" class="collection-item teal-text">评注:SSS级别</li>
-      </ul>
+					      
 				</div>
             </div>
           	</div>
@@ -47,9 +43,7 @@
 	<script src="jsondata.js"></script>
 	<script>
 
-		var dataBJ = [
-		    [0,0,0],
-		];
+		/*
 		var option = {
 		    backgroundColor: '#eceff1',
 
@@ -109,6 +103,47 @@
 		        },
 		    ]
 		};
+		*/
+		var option = {
+			color:['#26a69a'],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    xAxis : [
+        {
+            type : 'category',
+            axisTick : {show: false},
+            data : ['One','Two','Three']
+        }
+    ],
+    series : [
+        {
+            name:'分数',
+            type:'bar',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'inside'
+                }
+            },
+            data:[100,100,100]
+        }
+    ]
+};
 		var mainCanvas = document.getElementById('main');
 		var myChart = echarts.init(mainCanvas);
         myChart.setOption(option);
@@ -124,9 +159,9 @@
 				}
 				
 				if(data){
-					dataBJ[0][0] = swither[data['问题']];
-					dataBJ[0][1] = swither[data['方案']];
-					dataBJ[0][2] = swither[data['展示']];
+					option.series[0].data[0] = data['总分'];
+					option.series[0].data[1] = data['总分2'];
+					option.series[0].data[2] = data['总分3'];
 					myChart.setOption(option);
 					$("#name").text(data['姓名']);
 					$("#score").text('总分:'+data['总分']);
@@ -137,8 +172,7 @@
 					}
 				}else{
 					$("#name").text('学号不存在或输入格式有误');
-				}
-				
+				}			
 			});
 		});
 	</script>
