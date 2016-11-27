@@ -66,7 +66,7 @@
         {
             type : 'category',
             axisTick : {show: false},
-            data : ['1','2','3','4','5']
+            data : ['1','2','3','4','5','6']
         }
     ],
     series : [
@@ -79,7 +79,7 @@
                     position: 'inside'
                 }
             },
-            data:[0,0,0,0,0]
+            data:[0,0,0,0,0,0]
         }
     ]
 };
@@ -97,6 +97,7 @@
 					option.series[0].data[2] = data['总分3'];
 					option.series[0].data[3] = data['总分4'];
 					option.series[0].data[4] = data['总分5'];
+					option.series[0].data[5] = data['总分6'];
 					myChart.setOption(option);
 					$(".brand-logo").text(data['姓名']+'的分数');
 					console.log($(".brand-logo").html());
